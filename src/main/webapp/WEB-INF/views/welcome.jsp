@@ -13,10 +13,9 @@
 <body>
 	<h1>Bienvenue sur l'application webservice-Spring</h1>
 	
-	<c:url value="/api/client" var="webserviceUrl" />
 		
-	
 	<h2>
+	<c:url value="/api/client" var="webserviceUrl" />
 	<a href="${webserviceUrl}">Acceder à la liste de clients depuis l'application </a>
 	</h2>
 	
