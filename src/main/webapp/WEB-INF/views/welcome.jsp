@@ -11,7 +11,20 @@
 </head>
 
 <body>
-	<p>Hello world</p>
+	<h1>Bienvenue sur l'application webservice-Spring</h1>
 	
+	<c:url value="/api/client" var="webserviceUrl" />
+		
+	
+	<h2>
+	<a href="${webserviceUrl}">Acceder à la liste de clients depuis l'application </a>
+	</h2>
+	
+	<h2>
+	<a href="http://localhost:8080/webservice_1.0/api/client">Acceder à la liste de clients depuis une autre application</a>
+	</h2>
+	<p>(depuis la même machine)</p>
+	
+
 </body>
 </html>
