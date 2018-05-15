@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- ==== Format === -->
+	<property name="myPattern"
+		value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level
+		%logger{36} - %msg%n" />
+
+	<!-- ==== Appenders ==== -->
+	<!-- Appender sortie standard: console -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				${myPattern}
+			</Pattern>
+		</layout>
+	</appender>
+
+	<!-- Appender sortie fichier: blog.log -->
+	<appender name="APPLOG" class="ch.qos.logback.core.FileAppender">
+<!-- 		<file>C:\formationJava\workspaceW10Spring\formation-blog-spring\blog.log -->
+<!-- 		</file> -->
+		
+		<file>\\Nas\salles\Salle 503\USERS\BeatrizMoreno\WS.log</file>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>${myPattern}</Pattern>
+		</layout>
+	</appender>
+
+	<!-- ==== Loggers === -->
+	<logger name="fr.formation.blog" level="info" additivity="false">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="APPLOG" />
+	</logger>
+
+	<logger name="org.springframework" level="info" additivity="false">
+<!-- 		<appender-ref ref="STDOUT" /> -->
+	</logger>
+
+	<logger name="org.hibernate" level="info" additivity="false">
+<!-- 		<appender-ref ref="STDOUT" /> -->
+	</logger>
+
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="APPLOG" />
+	</root>
+
+
+</configuration>
