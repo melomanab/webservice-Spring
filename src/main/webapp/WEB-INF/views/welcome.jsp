@@ -12,8 +12,8 @@
 
 <body>
 	<h1>Bienvenue sur l'application webservice-Spring</h1>
+	<p> Pour tester nos webservices clickez sur les liens suivants!</p>
 	
-		
 	<h2>
 	<c:url value="/api/client" var="webserviceUrl" />
 	<a href="${webserviceUrl}">Acceder à la liste de clients depuis l'application </a>
