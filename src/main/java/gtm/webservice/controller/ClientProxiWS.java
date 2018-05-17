@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +35,7 @@ public class ClientProxiWS {
 
 	/**
 	 * Methode pour lire la liste de ClientProxi en base (GET)
-	 * Fonctionnelle
+	 * Fonctionnelle (testée avec Postman)
 	 * @return
 	 */
 	@GetMapping(path = { "", "/" })
@@ -48,7 +49,7 @@ public class ClientProxiWS {
 	
 	/**
 	 * Methode pour écrire un ClientProxi en base (POST)
-	 * Fonctionnelle
+	 * Fonctionnelle (testée avec Postman)
 	 * @return
 	 */
 	@PostMapping(path= {"","/"})		
@@ -59,13 +60,32 @@ public class ClientProxiWS {
 	
 	}
 	
+	/**
+	 * Methode pour modifier un ClientProxi en base (PUT)
+	 * Fonctionnelle (testée avec Postman)
+	 * @param clientProxiId
+	 * @param clientProxi
+	 * @return
+	 */
+
+	@PutMapping("/{clientProxiId}")
 	ClientProxi update(@PathVariable Integer clientProxiId, 
 			@RequestBody ClientProxi clientProxi) {
+		
+		// Important: Set id
 		clientProxi.setIdClient(clientProxiId);
 		
-		// ClientProxiWS.LOGGER.info("PUT client {} : {}  {}", clientProxi.getId(), client.getNom(), client.getPrenom());
+		ClientProxiWS.LOGGER.info("PUT client {} : {}  {}", 
+				clientProxi.getIdClient(), clientProxi.getNomClient(), clientProxi.getPrenomClient());
 		return this.clientProxiRepo.save(clientProxi);
 	}
+	
+	void delete(@PathVariable Integer clientProxiId) {
+		ClientProxiWS.LOGGER.info("DELETE client {}", clientProxiId);
+
+	}
+	
+	
 	
 
 }
