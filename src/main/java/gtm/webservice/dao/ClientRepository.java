@@ -1,10 +1,10 @@
-package gtm.webservice.repository;
+package gtm.webservice.dao;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import gtm.webservice.domain.Client;
+import gtm.webservice.domaine.Client;
 
 
 

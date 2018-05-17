@@ -1,5 +1,6 @@
-package gtm.webservice.controller;
+package gtm.webservice.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import gtm.webservice.domain.Client;
-import gtm.webservice.domain.ClientProxi;
-import gtm.webservice.repository.ClientProxiRepository;
-import gtm.webservice.repository.ClientRepository;
+import gtm.webservice.dao.ClientProxiRepository;
+import gtm.webservice.dao.ClientRepository;
+import gtm.webservice.domaine.Client;
+import gtm.webservice.domaine.ClientProxi;
 
 @RestController
 @RequestMapping("/api/clientProxi")
@@ -45,6 +46,41 @@ public class ClientProxiWS {
 		List<ClientProxi> listeClients = this.clientProxiRepo.findAll();
 		ClientProxiWS.LOGGER.info("{} clients existants en base", listeClients.size());
 		return listeClients;
+	}
+	
+	/**
+	 * Methode pour lire un ClientProxi (GET)
+	 * @param clientId
+	 * @return
+	 */
+	@GetMapping("/client/{clientProxiId}")
+	ClientProxi getClient(@PathVariable Integer clientProxiId) {
+		
+		ClientProxiWS.LOGGER.info("GET client id : {}",clientProxiId);
+		ClientProxi clientProxi = this.clientProxiRepo.findById(clientProxiId).get();
+		
+		return clientProxi;
+	}
+	
+	/**
+	 * Methode pour lire la liste de ClientProxi d'un Conseiller en base (GET)
+	 * @param conseillerId
+	 * @return
+	 */
+	@GetMapping("/conseiller/{conseillerId}")
+	List<ClientProxi> listAllClientsConseiller(@PathVariable Integer conseillerId) {
+		
+		ClientProxiWS.LOGGER.info("GET clients du conseiller : {}", conseillerId);
+		List<ClientProxi> listeClients = this.clientProxiRepo.findAll();
+		
+		List<ClientProxi> listeClientsConseiller = new ArrayList<ClientProxi>();
+		for (ClientProxi client : listeClients) {
+			if (client.getIdConseiller() == conseillerId) {
+				listeClientsConseiller.add(client);
+			}
+		}
+		
+		return listeClientsConseiller;
 	}
 	
 	/**

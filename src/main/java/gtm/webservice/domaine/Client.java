@@ -1,4 +1,4 @@
-package gtm.webservice.domain;
+package gtm.webservice.domaine;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -18,9 +18,6 @@
         
 	<!-- Activation du scan du package controller pour analyse des classes annotées -->
 	<context:component-scan
-		base-package="gtm.webservice.controller" />
-	<!-- Activation du scan du package service pour analyse des classes annotées -->
-	<context:component-scan
 		base-package="gtm.webservice.service" />
 	<!-- Cette configuration permet de mettre en place automatiquement plusieurs bean
 	 Spring importants (plus d'infos : https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-config-enable) -->
@@ -32,7 +29,7 @@
 	<mvc:resources location="/images/" mapping="/images/**" />
 
 	<!-- Bean métier basique -->
-	<bean id="client" class="gtm.webservice.domain.Client">
+	<bean id="client" class="gtm.webservice.domaine.Client">
 		<constructor-arg type="String" value="NomExemple" />
 		<constructor-arg type="String" value="PrenomExemple" />
 		<property name="id" value="1" />
@@ -63,5 +60,5 @@
 	<!-- Activation du scan du package repository pour analyser les interfaces 
 		et générer leurs implémentations CRUD++ -->
 	<jpa:repositories
-		base-package="gtm.webservice.repository" />
+		base-package="gtm.webservice.dao" />
 </beans>

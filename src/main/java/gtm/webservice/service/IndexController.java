@@ -1,4 +1,4 @@
-package gtm.webservice.controller;
+package gtm.webservice.service;
 
 
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import gtm.webservice.domain.Client;
+import gtm.webservice.domaine.Client;
 
 
 

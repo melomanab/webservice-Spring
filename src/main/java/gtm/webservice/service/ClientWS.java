@@ -1,4 +1,4 @@
-package gtm.webservice.controller;
+package gtm.webservice.service;
 
 import java.util.List;
 
@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import gtm.webservice.domain.Client;
-import gtm.webservice.repository.ClientRepository;
+import gtm.webservice.dao.ClientRepository;
+import gtm.webservice.domaine.Client;
 
 
 @RestController
