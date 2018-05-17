@@ -21,7 +21,6 @@ import gtm.webservice.domain.Client;
 import gtm.webservice.repository.ClientRepository;
 
 
-
 @RestController
 @RequestMapping("/api/client")
 public class ClientWS {
