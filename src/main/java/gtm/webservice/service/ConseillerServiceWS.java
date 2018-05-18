@@ -15,62 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gtm.webservice.dao.ClientProxiRepository;
-import gtm.webservice.dao.ClientRepository;
-import gtm.webservice.domaine.Client;
 import gtm.webservice.domaine.ClientProxi;
 
 @RestController
-@RequestMapping("/api/clientProxi")
-public class ClientProxiWS {
+// @RequestMapping("/api/clientProxi")
+@RequestMapping("/api/conseillerWS")
+public class ConseillerServiceWS {
 
 	/**
 	 * Declaration logger
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(ClientProxiWS.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ConseillerServiceWS.class);
 
 	/**
-	 * Injection repository
+	 * Injection de la dependance repository par Spring
 	 */
 	@Autowired
 	private ClientProxiRepository clientProxiRepo;
-
-	/**
-	 * Methode pour lire la liste de ClientProxi en base (GET)
-	 * Fonctionnelle (testée avec Postman)
-	 * @return
-	 */
-	@GetMapping(path = { "", "/" })
-	List<ClientProxi> list() {
-
-		ClientProxiWS.LOGGER.info("GET clients");
-		List<ClientProxi> listeClients = this.clientProxiRepo.findAll();
-		ClientProxiWS.LOGGER.info("{} clients existants en base", listeClients.size());
-		return listeClients;
-	}
 	
-	/**
-	 * Methode pour lire un ClientProxi (GET)
-	 * @param clientId
-	 * @return
-	 */
-	@GetMapping("/client/{clientProxiId}")
-	ClientProxi getClient(@PathVariable Integer clientProxiId) {
-		
-		ClientProxiWS.LOGGER.info("GET client id : {}",clientProxiId);
-		ClientProxi clientProxi = this.clientProxiRepo.findById(clientProxiId).get();
-		
-		return clientProxi;
-	}
 	
 	/**
 	 * Methode pour lire la liste de ClientProxi d'un Conseiller en base (GET)
 	 * @param conseillerId
 	 * @return
 	 */
-	@GetMapping("/conseiller/{conseillerId}")
-	List<ClientProxi> listAllClientsConseiller(@PathVariable Integer conseillerId) {
+	@GetMapping("/obtenirListeClientsConseiller/{conseillerId}")
+	List<ClientProxi> obtenirListeClientsConseiller(@PathVariable Integer conseillerId) {
 		
-		ClientProxiWS.LOGGER.info("GET clients du conseiller : {}", conseillerId);
+		ConseillerServiceWS.LOGGER.info("obtenirListeClientsConseiller : {}", conseillerId);
 		List<ClientProxi> listeClients = this.clientProxiRepo.findAll();
 		
 		List<ClientProxi> listeClientsConseiller = new ArrayList<ClientProxi>();
@@ -84,6 +56,41 @@ public class ClientProxiWS {
 	}
 	
 	/**
+	 *Methodes pas utilisées
+	 */
+	
+
+	/**
+	 * Methode pour lire la liste de ClientProxi en base (GET)
+	 * Fonctionnelle (testée avec Postman)
+	 * @return
+	 */
+	@GetMapping(path = { "", "/" })
+	List<ClientProxi> list() {
+
+		ConseillerServiceWS.LOGGER.info("GET clients");
+		List<ClientProxi> listeClients = this.clientProxiRepo.findAll();
+		ConseillerServiceWS.LOGGER.info("{} clients existants en base", listeClients.size());
+		return listeClients;
+	}
+	
+	/**
+	 * Methode pour lire un ClientProxi (GET)
+	 * @param clientId
+	 * @return
+	 */
+	@GetMapping("/client/{clientProxiId}")
+	ClientProxi getClient(@PathVariable Integer clientProxiId) {
+		
+		ConseillerServiceWS.LOGGER.info("GET client id : {}",clientProxiId);
+		ClientProxi clientProxi = this.clientProxiRepo.findById(clientProxiId).get();
+		
+		return clientProxi;
+	}
+	
+	
+	
+	/**
 	 * Methode pour écrire un ClientProxi en base (POST)
 	 * Fonctionnelle (testée avec Postman)
 	 * @return
@@ -91,7 +98,7 @@ public class ClientProxiWS {
 	@PostMapping(path= {"","/"})		
 	ClientProxi create(@RequestBody ClientProxi clientProxi) {
 	
-		ClientProxiWS.LOGGER.info("POST client: {}  {}", clientProxi.getNomClient(), clientProxi.getPrenomClient());
+		ConseillerServiceWS.LOGGER.info("POST client: {}  {}", clientProxi.getNomClient(), clientProxi.getPrenomClient());
 		return this.clientProxiRepo.save(clientProxi);
 	
 	}
@@ -111,13 +118,13 @@ public class ClientProxiWS {
 		// Important: Set id
 		clientProxi.setIdClient(clientProxiId);
 		
-		ClientProxiWS.LOGGER.info("PUT client {} : {}  {}", 
+		ConseillerServiceWS.LOGGER.info("PUT client {} : {}  {}", 
 				clientProxi.getIdClient(), clientProxi.getNomClient(), clientProxi.getPrenomClient());
 		return this.clientProxiRepo.save(clientProxi);
 	}
 	
 	void delete(@PathVariable Integer clientProxiId) {
-		ClientProxiWS.LOGGER.info("DELETE client {}", clientProxiId);
+		ConseillerServiceWS.LOGGER.info("DELETE client {}", clientProxiId);
 
 	}
 	
