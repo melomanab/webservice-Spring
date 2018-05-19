@@ -29,11 +29,13 @@
 	<mvc:resources location="/images/" mapping="/images/**" />
 
 	<!-- Bean métier basique -->
-	<bean id="client" class="gtm.webservice.domaine.Client">
-		<constructor-arg type="String" value="NomExemple" />
-		<constructor-arg type="String" value="PrenomExemple" />
-		<property name="id" value="1" />
-	</bean>
+<!-- 	<bean id="clientProxi" class="gtm.webservice.domaine.ClientProxi"> -->
+<!-- 		<constructor-arg type="Integer" value="1"/> -->
+<!-- 		<constructor-arg type="String" value="Moreno" /> -->
+<!-- 		<constructor-arg type="String" value="Beatriz" /> -->
+<!-- 		<constructor-arg type="String" value="moreno.ortega.beatriz@gmail.com" /> -->
+<!-- 		<constructor-arg type="String" value="1 rue des Champs Lyon" /> -->
+<!-- 	</bean> -->
 	
 	<!-- Bean de configuration Spring : Objet permettant de résoudre les noms 
 		de vues (ModelAndView) en page JSP -->

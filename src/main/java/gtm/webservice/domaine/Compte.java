@@ -1,14 +1,21 @@
 package gtm.webservice.domaine;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="compte")
+@JsonIgnoreProperties({"client"})
 public class Compte {
 	
 	@Id
@@ -28,8 +35,10 @@ public class Compte {
 	@Column
 	private Double decouvertMaxCompte;
 	
-	@Column
-	private Integer idClient;
+	@ManyToOne
+	//@ManyToOne(targetEntity=ClientProxi.class)
+	//@JoinColumn(name = "idClient", referencedColumnName = "idClient")
+	private ClientProxi client;
 
 		
 	
@@ -39,15 +48,13 @@ public class Compte {
 
 
 
-	public Compte(Integer idCompte, String numCompte, String typeCompte, Double soldeCompte, Double decouvertMaxCompte,
-			Integer idClient) {
+	public Compte(Integer idCompte, String numCompte, String typeCompte, Double soldeCompte, Double decouvertMaxCompte) {
 		super();
 		this.idCompte = idCompte;
 		this.numCompte = numCompte;
 		this.typeCompte = typeCompte;
 		this.soldeCompte = soldeCompte;
 		this.decouvertMaxCompte = decouvertMaxCompte;
-		this.idClient = idClient;
 	}
 
 
@@ -112,17 +119,17 @@ public class Compte {
 
 
 
-	public Integer getIdClient() {
-		return idClient;
+	public ClientProxi getClient() {
+		return client;
 	}
 
 
 
-	public void setIdClient(Integer idClient) {
-		this.idClient = idClient;
+	public void setClient(ClientProxi client) {
+		this.client = client;
 	}
-	
-	
+
+
 	
 	
 	

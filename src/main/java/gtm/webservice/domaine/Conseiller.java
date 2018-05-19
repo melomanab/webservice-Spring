@@ -1,14 +1,25 @@
 package gtm.webservice.domaine;
 
+import gtm.webservice.domaine.ClientProxi;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="conseiller")
+@JsonIgnoreProperties({"clientsConseiller"})
 public class Conseiller {
 	
 	@Id
@@ -28,6 +39,9 @@ public class Conseiller {
 	@Column
 	private String password;
 	
+	@OneToMany(mappedBy="conseiller",cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
+	private List<ClientProxi> clientsConseiller;
+	
 	
 
 	public Conseiller() {
@@ -43,6 +57,7 @@ public class Conseiller {
 		this.prenomConseiller = prenomConseiller;
 		this.login = login;
 		this.password = password;
+		this.clientsConseiller = new ArrayList<ClientProxi>();
 	}
 
 
@@ -93,6 +108,16 @@ public class Conseiller {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	public List<ClientProxi> getClientsConseiller() {
+		return clientsConseiller;
+	}
+
+
+	public void setClientsConseiller(List<ClientProxi> clientsConseiller) {
+		this.clientsConseiller = clientsConseiller;
 	}
 	
 	

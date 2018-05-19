@@ -1,19 +1,32 @@
 package gtm.webservice.domaine;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="clientProxi")
+@JsonIgnoreProperties({"comptesClient"})
 public class ClientProxi {
 	
 	// Proprietées
 	@Id
-	@Column(name="idClient")
+	@Column(name="idClient", unique=true)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idClient;
 	
@@ -28,16 +41,27 @@ public class ClientProxi {
 	
 	@Column
 	private String adresseClient;
-		
-	@Column
-	private Integer idConseiller;
 	
+	//@ManyToOne(targetEntity=Conseiller.class)
+	//@JoinColumn(name = "idConseiller", referencedColumnName = "idConseiller")
+	// @Column
+	@ManyToOne
+	private Conseiller conseiller;
 	
+	// Nécessaire pour permettre la suppression d'un client en supprimant les comptes à ForeignKey associés
+	// @OneToMany(targetEntity=Compte.class, cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="client", cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
+	//@JoinColumn(name = "idClient", referencedColumnName = "idClient")
+	private List<Compte> comptesClient;
+
+	/**
+	 * Constructeur vide
+	 */
 	public ClientProxi() {
 		super();
 	}
-	
-	
+
+
 	public ClientProxi(Integer idClient, String nomClient, String prenomClient, String emailClient,
 			String adresseClient) {
 		super();
@@ -46,12 +70,11 @@ public class ClientProxi {
 		this.prenomClient = prenomClient;
 		this.emailClient = emailClient;
 		this.adresseClient = adresseClient;
-		this.idConseiller = 1;
+		this.comptesClient = new ArrayList<Compte>();
 	}
 
 
-
-
+	
 	public Integer getIdClient() {
 		return idClient;
 	}
@@ -101,16 +124,26 @@ public class ClientProxi {
 		this.adresseClient = adresseClient;
 	}
 
-
-	public Integer getIdConseiller() {
-		return idConseiller;
-	}
-
-
-	public void setIdConseiller(Integer idConseiller) {
-		this.idConseiller = idConseiller;
-	}
 	
+	public Conseiller getConseiller() {
+		return conseiller;
+	}
+
+
+	public void setConseiller(Conseiller conseiller) {
+		this.conseiller = conseiller;
+	}
+
+
+	public List<Compte> getComptesClient() {
+		return comptesClient;
+	}
+
+
+	public void setComptesClient(List<Compte> comptesClient) {
+		this.comptesClient = comptesClient;
+	}
+
 	
 	
 	

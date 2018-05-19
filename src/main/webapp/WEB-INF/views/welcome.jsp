@@ -14,15 +14,24 @@
 	<h1>Bienvenue sur l'application webservice-Spring</h1>
 	<p> Pour tester nos webservices clickez sur les liens suivants!</p>
 	
-	<h2>
-	<c:url value="/api/client" var="webserviceUrl" />
-	<a href="${webserviceUrl}">Acceder à la liste de clients depuis l'application </a>
+		<h2>
+	<c:url value="/api/clientWS" var="clientWSUrl" />
+	<a href="${webserviceUrl}/obtenirListeClientsConseiller/1">Acceder à la liste de clients depuis l'application </a>
 	</h2>
 	
 	<h2>
-	<a href="http://localhost:8080/webservice_1.0/api/client">Acceder à la liste de clients depuis une autre application</a>
+	<a href="http://localhost:8080/webservice_1.0/obtenirListeClientsConseiller/1">Acceder à la liste de clients depuis une autre application</a>
 	</h2>
 	<p>(depuis la même machine)</p>
+
+
+<%-- 	<c:forEach items="${listeClients}" var="client"> --%>
+<%-- 		<div title="${client.idClient}"> --%>
+<%-- 		<p>"${client.nomClient}"</p> --%>
+			
+<!-- 		</div> -->
+<%-- 	</c:forEach> --%>
+
 	
 
 </body>

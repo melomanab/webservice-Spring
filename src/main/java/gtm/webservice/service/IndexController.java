@@ -1,6 +1,8 @@
 package gtm.webservice.service;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import gtm.webservice.domaine.Client;
+import gtm.webservice.dao.ClientProxiRepository;
+import gtm.webservice.domaine.ClientProxi;
 
 
 
@@ -22,19 +25,17 @@ public class IndexController {
 
 	
 	/**
-	 * Injection du bean id="client".
-	 */
-	@Autowired
-	private Client client;
-
-	/**
-	 * Injection du bean d'implémentation d'ArticleRepository généré par Spring.
-	 */
+	 * Injection du bean id="clientProxi".
+//	 */
 //	@Autowired
-//	private ClientRepository clientRepository;
+//	private ClientProxi clientProxi;
 	
+	/**
+	 * Injection du bean ClientServiceWS généré par Spring.
+//	 */
 //	@Autowired
-//	private ServiceClient clientService;
+//	private ClientProxiRepository clientProxiRepository;
+	
 
 
 	/**
@@ -50,20 +51,15 @@ public class IndexController {
 		
 		IndexController.LOGGER.info("Requête HTTP déclenchant la méthode displayIndex().");
 		
-		ModelAndView mav = new ModelAndView("welcome");
+		ModelAndView mav = new ModelAndView("welcome");		
+//		// Charger la liste de clients
+//		List<ClientProxi> listeClients = this.clientProxiRepository.findAll();
 		
-		
-//		final List<Client> clientsModele = new ArrayList<>();
-//		clientsModele.add(this.client);
-		
-		// --- Pas s'acces directe à la DAO depuis le controlleur!
-//		List<Client> clientsBdd = clientService.listeClients();
-//		clientsBdd.add(this.client);
-//		IndexController.LOGGER.info("Liste clients chagée via clientService");
-//		mav.getModel().put("clients", clients);
-		
-		
-		
+//		final List<Article> articles = new ArrayList<>();
+//		articles.add(this.article);
+////		articles.addAll(this.articleRepository.findAll());
+//		mav.getModel().put("listeClients", listeClients);
+			
 		return mav;
 	}
 
