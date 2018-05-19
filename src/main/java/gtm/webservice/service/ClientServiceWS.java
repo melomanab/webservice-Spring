@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import gtm.webservice.auxiliare.SimplePojo;
 import gtm.webservice.dao.ClientProxiRepository;
 import gtm.webservice.domaine.ClientProxi;
 
@@ -31,8 +30,6 @@ public class ClientServiceWS {
 	private ClientProxiRepository clientProxiRepo;
 	
 	
-	private SimplePojo auxiliare;
-	
 	// TO-DO
 	// + creerClient(ClientProxi) : boolean
 	/**
@@ -43,10 +40,10 @@ public class ClientServiceWS {
 	 * @return
 	 */
 	@PostMapping(path = "/creerClient")
-	SimplePojo creerClient(@RequestBody ClientProxi client) {
+	Boolean creerClient(@RequestBody ClientProxi client) {
 		
 		// Insertion par defaut: false 
-		auxiliare.setBool(false);
+		Boolean insert;
 
 		ClientServiceWS.LOGGER.info("Demande creerClient associe a conseiller: {}", client.getIdConseiller());
 		ClientProxi clientEnregistre = this.clientProxiRepo.save(client);
@@ -54,9 +51,12 @@ public class ClientServiceWS {
 		if (!clientEnregistre.equals(null)) {
 			
 			// Insertion valide 
-			auxiliare.setBool(true);
+			insert = new Boolean(true);
 		}
-		return auxiliare;
+		else {
+			insert = new Boolean(false);
+		}
+		return insert;
 	}
 
 
@@ -79,11 +79,11 @@ public class ClientServiceWS {
 	
 	// + modifierClient(ClientProxi) : boolean
 	@PutMapping("/modifierClient/{clientId}")
-	boolean modifierClient(@PathVariable Integer clientId, 
+	Boolean modifierClient(@PathVariable Integer clientId, 
 			@RequestBody ClientProxi clientProxi) {
 		
 		ClientServiceWS.LOGGER.info("modifierClient: {}", clientId);
-		boolean modifie=false;
+		Boolean modifie=false;
 		
 		// important: setId
 		clientProxi.setIdClient(clientId);
