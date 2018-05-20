@@ -55,7 +55,7 @@ public class CompteServiceWS implements ICompteServiceWS {
 	@Override
 	public Boolean crediter(Compte compte, Double montant) {
 	
-		CompteServiceWS.LOGGER.info("Demande debit de {}EUR sur compte numero: {}", montant, compte.getNumCompte());
+		CompteServiceWS.LOGGER.info("Demande credit de {}EUR sur compte numero: {}", montant, compte.getNumCompte());
 		CompteServiceWS.LOGGER.info("--Ancien solde: {}", compte.getSoldeCompte());
 		
 		
@@ -63,14 +63,15 @@ public class CompteServiceWS implements ICompteServiceWS {
 		
 		if (montant > 0) {
 			
-			credit=true;
+
 			
-			// Credit 
+			// Calcul nouveau montant
 			Double nouveauSolde = compte.getSoldeCompte() + montant;
-			compte.setSoldeCompte(nouveauSolde);
 			
-			// Enregistrement en base
+			// Credit et enregistrement en base
+			compte.setSoldeCompte(nouveauSolde);
 			this.compteRepo.save(compte);
+			credit=true;
 			
 		}
 		CompteServiceWS.LOGGER.info("--Nouveau solde: {}", compte.getSoldeCompte());
@@ -81,8 +82,28 @@ public class CompteServiceWS implements ICompteServiceWS {
 	@Override
 	public Boolean debiter(Compte compte, Double montant) {
 		
+		CompteServiceWS.LOGGER.info("Demande debit de {}EUR sur compte numero: {}", montant, compte.getNumCompte());
+		CompteServiceWS.LOGGER.info("--Ancien solde: {}", compte.getSoldeCompte());
 		
-		return null;
+		Boolean debit=false;
+		
+		if(montant > 0) {
+			
+			// Calcul nouveau solde
+			Double nouveauSolde = compte.getSoldeCompte() - montant;
+			
+			// Autorisation debit que si nouveau solde superieur ou egal a decourvert max
+			if (nouveauSolde >= compte.getDecouvertMaxCompte()) {
+				
+				// Debit
+				compte.setSoldeCompte(nouveauSolde);
+				this.compteRepo.save(compte);
+				debit=true;								
+			}		
+		}	
+		CompteServiceWS.LOGGER.info("--Nouveau solde: {}", compte.getSoldeCompte());
+		
+		return debit;
 	}
 
 	@Override
