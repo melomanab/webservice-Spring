@@ -13,7 +13,7 @@ public interface IClientServiceWS {
 	public ClientProxi obtenirClient(Integer idClient);
 	
 //	+ modifierClient(ClientProxi) : boolean
-	public Boolean modifierClient(Integer idClient, ClientProxi client);
+	public ClientProxi modifierClient(Integer idClient, ClientProxi client);
 	
 //	+ supprimerClient(ClientProxi) : boolean
 	public Boolean supprimerClient(Integer idClient);

@@ -101,30 +101,32 @@ public class ClientServiceWS implements IClientServiceWS {
 	 * @return modifie, true si le client a ete effectivement modifie en base
 	 */
 	@PutMapping("/modifierClient/{idClient}")
-	public Boolean modifierClient(@PathVariable Integer idClient, @RequestBody ClientProxi clientProxi) {
+	public ClientProxi modifierClient(@PathVariable Integer idClient, @RequestBody ClientProxi clientProxi) {
 
 		ClientServiceWS.LOGGER.info("Demande modification client: {}", idClient);
 
-		Boolean modifie = false;
+		//Boolean modifie = false;
 
 		Optional<ClientProxi> clientInBase = this.clientProxiRepo.findById(idClient);
+		ClientProxi clientFromBase = new ClientProxi();
 
 		if (clientInBase.isPresent()) {			
+			
 			clientProxi.setConseiller(clientInBase.get().getConseiller());	
 
 			// important: associer l'id passe en parametre avec l'objet client
 			clientProxi.setIdClient(idClient);
 
 			ClientProxi clientModifie = this.clientProxiRepo.save(clientProxi);
-
-			if (!clientModifie.equals(null)) {
-				modifie = true;
+			clientFromBase = this.clientProxiRepo.findById(idClient).get();
+			
+			if (!clientFromBase.equals(null)) {
+				// modifie = true;				
 			}
 		}
 		
-
-
-		return modifie;
+		return clientFromBase;
+		// return modifie;
 	}
 
 	@Override
