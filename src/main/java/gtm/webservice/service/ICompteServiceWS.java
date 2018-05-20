@@ -4,6 +4,7 @@ import java.util.List;
 
 import gtm.webservice.domaine.ClientProxi;
 import gtm.webservice.domaine.Compte;
+import gtm.webservice.domaine.Transaction;
 
 public interface ICompteServiceWS {
 
@@ -36,7 +37,7 @@ public interface ICompteServiceWS {
 	 * @param montant
 	 * @return
 	 */
-	public Boolean virement(Compte compteEmeteur, Compte compteDebiteur, Double montant);
+	public Boolean virement(Transaction transaction);
 
 	// # debiter (Compte, Double): Boolean
 	Boolean debiter(Compte compte, Double montant);
@@ -49,6 +50,6 @@ public interface ICompteServiceWS {
 	 * Methode permettant d'obtenir la liste de comptes a decourvert
 	 * @return
 	 */
-	public List<Compte> obtenirComptesDecouver();
+	public List<Compte> obtenirComptesDecouvert();
 
 }

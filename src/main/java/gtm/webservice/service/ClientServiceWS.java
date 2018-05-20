@@ -131,7 +131,7 @@ public class ClientServiceWS implements IClientServiceWS {
 
 	@Override
 	@DeleteMapping("supprimerClient/{idClient}")
-	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	// @ResponseStatus(code = HttpStatus.NO_CONTENT)
 	public Boolean supprimerClient(@PathVariable Integer idClient) {
 
 		ClientServiceWS.LOGGER.info("Demande suppression client: {}", idClient);

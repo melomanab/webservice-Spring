@@ -2,18 +2,22 @@ package gtm.webservice.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import gtm.webservice.dao.CompteRepository;
 import gtm.webservice.domaine.ClientProxi;
 import gtm.webservice.domaine.Compte;
+import gtm.webservice.domaine.Transaction;
 
 @RestController
 @RequestMapping("api/compteWS")
@@ -119,15 +123,35 @@ public class CompteServiceWS implements ICompteServiceWS {
 		return comptesBanque;
 	}
 
+
 	@Override
-	public Boolean virement(Compte compteEmeteur, Compte compteDebiteur, Double montant) {
-		// TODO Auto-generated method stub
-		return null;
+	@PostMapping(path="/virement")
+	public Boolean virement(@RequestBody Transaction transaction) {
+		
+		CompteServiceWS.LOGGER.info("Demande de virement");
+		
+		Boolean succes = false;
+		
+		// Objets transaction	
+		Compte cEmetteur = new Compte ();
+		Compte cBeneficiaire = new Compte ();
+		Double montant;
+				
+		Optional<Compte> cEmetteurInBase = this.compteRepo.findById(transaction.getIdCompteEmetteur());
+		Optional<Compte> cBeneficiaireInBase = this.compteRepo.findById(transaction.getIdCompteBeneficiaire());
+		
+		if(cEmetteurInBase.isPresent() & cBeneficiaireInBase.isPresent()) {
+			
+			//TO-DO
+			succes=true;
+		}
+				
+		return succes;
 	}
-
-
+	
+	
 	@Override
-	public List<Compte> obtenirComptesDecouver() {
+	public List<Compte> obtenirComptesDecouvert() {
 		// TODO Auto-generated method stub
 		return null;
 	}
