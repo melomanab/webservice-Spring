@@ -35,7 +35,7 @@ public class CompteServiceWS implements ICompteServiceWS {
 	 */
 	@Autowired
 	private CompteRepository compteRepo;
-	
+
 	/**
 	 * Injection de la dependance repository par Spring
 	 */
@@ -80,9 +80,9 @@ public class CompteServiceWS implements ICompteServiceWS {
 			this.compteRepo.save(compte);
 			credit = true;
 
-		}else {
+		} else {
 			CompteServiceWS.LOGGER.info("ECHEC TRANSACTION: Le montant introduit doit etre strictement positif");
-			
+
 		}
 		CompteServiceWS.LOGGER.info(">>Nouveau solde: {}", compte.getSoldeCompte());
 
@@ -109,10 +109,10 @@ public class CompteServiceWS implements ICompteServiceWS {
 				compte.setSoldeCompte(nouveauSolde);
 				this.compteRepo.save(compte);
 				debit = true;
-			}else {
+			} else {
 				CompteServiceWS.LOGGER.info("ECHEC TRANSACTION: Solde insuffisant");
 			}
-		}else {
+		} else {
 			CompteServiceWS.LOGGER.info("ECHEC TRANSACTION: Le montant introduit doit etre strictement positif");
 		}
 		CompteServiceWS.LOGGER.info(">>Nouveau solde: {}", compte.getSoldeCompte());
@@ -154,9 +154,9 @@ public class CompteServiceWS implements ICompteServiceWS {
 			// Comptes emetteur et beneficiaire valides
 			cEmetteur = cEmetteurInBase.get();
 			cBeneficiaire = cBeneficiaireInBase.get();
-			
+
 			if (cEmetteur.getIdCompte() == cBeneficiaire.getIdCompte()) {
-				
+
 				CompteServiceWS.LOGGER.info("ECHEC: Le compte emetteur doit etre different du compte beneficiaire");
 				return false;
 			}
@@ -171,12 +171,12 @@ public class CompteServiceWS implements ICompteServiceWS {
 				// Enregistrement de transaction avec la date courante
 				Date today = new Date();
 				transaction.setDate(today);
-				
-				CompteServiceWS.LOGGER.info("SUCCES TRANSACTION: Operation enregistree le {}", today);
-				
+
 				this.transactionRepo.save(transaction);
 				succes = true;
-				
+
+				CompteServiceWS.LOGGER.info("SUCCES TRANSACTION: Operation enregistree le {}", today);
+
 			}
 
 		} else {
@@ -187,9 +187,29 @@ public class CompteServiceWS implements ICompteServiceWS {
 	}
 
 	@Override
+	@GetMapping(path="/obtenirComptesDecouvert")
 	public List<Compte> obtenirComptesDecouvert() {
-		// TODO Auto-generated method stub
-		return null;
+
+		CompteServiceWS.LOGGER.info("Demande obtention comptes a decouvert");
+
+		List<Compte> comptesDecouvert = new ArrayList<Compte>();
+
+		// Obtenir comptes banque
+		List<Compte> comptesBanque = this.obtenirComptesBanque();
+
+		// Pour chaque compte de la banque
+		for (Compte c : comptesBanque) {
+			// Si le solde est inferieur a 0
+			if (c.getSoldeCompte() < 0) {
+				// Ajouter a liste de comptes a decourvert
+				comptesDecouvert.add(c);
+			}
+
+		}
+
+		CompteServiceWS.LOGGER.info("{} comptes a decouvert trouvees", comptesDecouvert.size());
+
+		return comptesDecouvert;
 	}
 
 }

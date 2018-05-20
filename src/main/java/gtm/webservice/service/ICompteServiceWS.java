@@ -47,9 +47,10 @@ public interface ICompteServiceWS {
 
 	// + obtenirComptesDecouvert(): List<Compte>
 	/**
-	 * Methode permettant d'obtenir la liste de comptes a decourvert
+	 * Methode permettant d'obtenir la liste de comptes a decouvert
 	 * @return
 	 */
 	public List<Compte> obtenirComptesDecouvert();
+	
 
 }

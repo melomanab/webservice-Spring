@@ -1,6 +1,7 @@
 package gtm.webservice.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,17 @@ public class TransactionServiceWS implements ITransactionServiceWS {
 		List<Transaction> transactionsBanque = this.transationRepo.findAll();
 		
 		return transactionsBanque;
+	}
+
+	@Override
+	public Map<Integer, Integer> decompterTransactions() {
+		// TODO Auto-generated method stub
+		
+		Map<Integer, Integer> transactionsParMois;
+		
+		
+		
+		return null;
 	}
 
 }
