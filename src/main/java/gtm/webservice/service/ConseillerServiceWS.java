@@ -34,6 +34,9 @@ public class ConseillerServiceWS implements IConseillerServiceWS{
 	
 	
 
+	/* (non-Javadoc)
+	 * @see gtm.webservice.service.IConseillerServiceWS#obtenirListeClientsConseiller(java.lang.Integer)
+	 */
 	@GetMapping("/obtenirListeClientsConseiller/{conseillerId}")
 	public List<ClientProxi> obtenirListeClientsConseiller(@PathVariable Integer conseillerId) {
 		

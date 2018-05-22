@@ -44,20 +44,19 @@ public class CompteServiceWS implements ICompteServiceWS {
 
 	
 	
-	public Boolean creerCompte(Compte compte, Integer idClient) {
+	public boolean creerCompte(Compte compte, Integer idClient) {
 		
 		// Methode utilisé dans les tests
 		// A ameliorer dans le cadre d'un realease 2
 		
 		CompteServiceWS.LOGGER.info("Demande creation compte associé a client {}", idClient);
 		
-		Boolean insert = false;
+		boolean insert = false;
 		
 		compte.getClient().setIdClient(idClient);
 		this.compteRepo.save(compte);
 		insert=true;
 		
-		CompteServiceWS.LOGGER.info("Demande creation compte associé a client {}", idClient);		
 		return insert;
 	}
 	

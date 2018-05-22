@@ -12,6 +12,11 @@ import gtm.webservice.domaine.ClientProxi;
 public interface IConseillerServiceWS {
 	
 
+	/**
+	 * Methode permettant de recuperer la liste de clients associe au conseiller specifie
+	 * @param conseillerId
+	 * @return
+	 */
 	public List<ClientProxi> obtenirListeClientsConseiller(@PathVariable Integer conseillerId);
 
 }
