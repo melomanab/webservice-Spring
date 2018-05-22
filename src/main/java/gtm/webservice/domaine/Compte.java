@@ -48,7 +48,8 @@ public class Compte {
 
 
 
-	public Compte(Integer idCompte, String numCompte, String typeCompte, Double soldeCompte, Double decouvertMaxCompte) {
+	public Compte(Integer idCompte, String numCompte, String typeCompte, 
+			Double soldeCompte, Double decouvertMaxCompte) {
 		super();
 		this.idCompte = idCompte;
 		this.numCompte = numCompte;

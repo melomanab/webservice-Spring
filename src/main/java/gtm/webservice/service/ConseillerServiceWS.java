@@ -18,7 +18,6 @@ import gtm.webservice.dao.ClientProxiRepository;
 import gtm.webservice.domaine.ClientProxi;
 
 @RestController
-// @RequestMapping("/api/clientProxi")
 @RequestMapping("/api/conseillerWS")
 public class ConseillerServiceWS implements IConseillerServiceWS{
 

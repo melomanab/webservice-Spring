@@ -42,6 +42,26 @@ public class CompteServiceWS implements ICompteServiceWS {
 	@Autowired
 	private TransactionRepository transactionRepo;
 
+	
+	
+	public Boolean creerCompte(Compte compte, Integer idClient) {
+		
+		// Methode utilisé dans les tests
+		// A ameliorer dans le cadre d'un realease 2
+		
+		CompteServiceWS.LOGGER.info("Demande creation compte associé a client {}", idClient);
+		
+		Boolean insert = false;
+		
+		compte.getClient().setIdClient(idClient);
+		this.compteRepo.save(compte);
+		insert=true;
+		
+		CompteServiceWS.LOGGER.info("Demande creation compte associé a client {}", idClient);		
+		return insert;
+	}
+	
+	
 	@Override
 	@GetMapping(path = "/obtenirComptesClient/{idClient}")
 	public List<Compte> obtenirComptesClient(@PathVariable Integer idClient) {
