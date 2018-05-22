@@ -59,6 +59,9 @@ public class ClientProxi {
 	 */
 	public ClientProxi() {
 		super();
+		
+		this.conseiller= new Conseiller();
+		this.comptesClient = new ArrayList<Compte>();
 	}
 
 
@@ -70,6 +73,8 @@ public class ClientProxi {
 		this.prenomClient = prenomClient;
 		this.emailClient = emailClient;
 		this.adresseClient = adresseClient;
+		
+		this.conseiller= new Conseiller();
 		this.comptesClient = new ArrayList<Compte>();
 	}
 

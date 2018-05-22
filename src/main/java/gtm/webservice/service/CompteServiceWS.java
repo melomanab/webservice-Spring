@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import gtm.webservice.dao.CompteRepository;
 import gtm.webservice.dao.TransactionRepository;
 import gtm.webservice.domaine.ClientProxi;
 import gtm.webservice.domaine.Compte;
+import gtm.webservice.domaine.Conseiller;
 import gtm.webservice.domaine.Transaction;
 
 @RestController
@@ -44,20 +46,65 @@ public class CompteServiceWS implements ICompteServiceWS {
 
 	
 	
-	public boolean creerCompte(Compte compte, Integer idClient) {
-		
-		// Methode utilisé dans les tests
-		// A ameliorer dans le cadre d'un realease 2
-		
-		CompteServiceWS.LOGGER.info("Demande creation compte associé a client {}", idClient);
-		
-		boolean insert = false;
-		
-		compte.getClient().setIdClient(idClient);
-		this.compteRepo.save(compte);
-		insert=true;
-		
+	public Boolean creerCompte(Compte compte) {
+
+		Boolean insert = false;
+		Boolean inBase = false;
+
+		CompteServiceWS.LOGGER.info("Demande creation compte associe a client: {}", compte.getClient().getIdClient());
+
+		// Si le compte posssede un id
+		if (compte.getIdCompte() != null) {
+
+			Optional<Compte> compteInBdd = this.compteRepo.findById(compte.getIdCompte());
+			if (compteInBdd.isPresent()) {
+				inBase = true;
+			}
+
+		}
+
+		if (!inBase) {
+			Compte compteEnregistre = this.compteRepo.save(compte);
+
+			if (!compteEnregistre.equals(null)) {
+				// Insertion valide
+				insert = true;
+			}
+		}
 		return insert;
+	}
+
+	public Boolean supprimerCompte(Integer idCompte) {
+
+		CompteServiceWS.LOGGER.info("Demande suppression Compte: {}", idCompte);
+
+		Boolean inBase = false;
+		Boolean delete = false;
+
+		Optional<Compte> CompteInBase = this.compteRepo.findById(idCompte);
+
+		if (CompteInBase.isPresent()) {			
+			inBase=true;		
+		}
+		
+		if(inBase==true) {
+			this.compteRepo.deleteById(idCompte);
+			delete=true;			
+		}
+
+		return delete;
+	}
+	
+	public Compte obtenirCompte( Integer idCompte) {
+
+		CompteServiceWS.LOGGER.info("Demande obtention Compte: {}", idCompte);
+		Optional<Compte> Compte = this.compteRepo.findById(idCompte);
+		
+		if (Compte.isPresent()) {
+				return Compte.get();
+		} else {
+			return null;
+		}
 	}
 	
 	

@@ -46,6 +46,7 @@ public class Conseiller {
 
 	public Conseiller() {
 		super();
+		this.clientsConseiller = new ArrayList<ClientProxi>();
 	}
 
 

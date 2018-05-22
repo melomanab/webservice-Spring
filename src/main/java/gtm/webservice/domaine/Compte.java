@@ -44,6 +44,8 @@ public class Compte {
 	
 	public Compte() {
 		super();
+		// Instancier client vide
+		this.client= new ClientProxi();
 	}
 
 
@@ -56,6 +58,9 @@ public class Compte {
 		this.typeCompte = typeCompte;
 		this.soldeCompte = soldeCompte;
 		this.decouvertMaxCompte = decouvertMaxCompte;
+		
+		// Instancier client vide
+		this.client= new ClientProxi();
 	}
 
 

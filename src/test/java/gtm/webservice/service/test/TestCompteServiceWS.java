@@ -2,6 +2,7 @@ package gtm.webservice.service.test;
 
 import static org.junit.Assert.*;
 
+import org.hamcrest.core.IsEqual;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,27 +15,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import gtm.webservice.dao.CompteRepository;
 import gtm.webservice.domaine.ClientProxi;
 import gtm.webservice.domaine.Compte;
+import gtm.webservice.domaine.Conseiller;
 import gtm.webservice.domaine.Transaction;
 import gtm.webservice.service.ClientServiceWS;
 import gtm.webservice.service.CompteServiceWS;
+import gtm.webservice.service.ConseillerServiceWS;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="test-context.xml")
 public class TestCompteServiceWS {
 	
-	/**
-	 * Declaration logger
-	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(TestCompteServiceWS.class);
-
 	@Autowired
 	private CompteServiceWS compteService;
 	
-	private Compte compte1;
-	private Compte compte2;
+	@Autowired
+	private ClientServiceWS clientService;
+	
+	@Autowired
+	private ConseillerServiceWS conseillerService;
+
+	private Conseiller conseiller;
+	private ClientProxi client;
+	
+	private Compte compteBeneficiaire;
+	private Compte compteEmetteur;
+	
+
+	Double soldeInitialBeneficiaire;
+	Double soldeFinalBeneficiaire;
+	Double soldeInitialEmetteur;
+	Double soldeFinalEmetteur;
+	Double montant;
 	
 	private Transaction transaction;
 
@@ -43,62 +56,87 @@ public class TestCompteServiceWS {
 	public static void setUpBeforeClass() throws Exception {
 		
 		System.out.println("---beforeClass");
-		TestCompteServiceWS.LOGGER.info("Before class");
-		
-		// Recuperer client de la base sur lequel realiser les tests
-		/// ClientProxi client= compteService.obtenirClient();
-		//compteService = new CompteServiceWS();
-		//System.out.println(compteService.obtenirComptesBanque());
 	
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		
+		System.out.println("---afterClass");
+		
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		System.out.println(compteService.obtenirComptesBanque());
-		
 		System.out.println("--before");
 		
-		// Instancier compte 1
-		compte1 =new Compte(null, "C1TEST", "Courant", 10000.0, 1000.0);
-		// compte1.setClient(new ClientProxi()).setIdClient(1);
+		// Instancier conseiller et l'enregistrer en base
+		conseiller =new Conseiller (null, "TEST", "TEST", "TEST", "TEST");
+		this.conseillerService.creerConseiller(conseiller);
 		
-		System.out.println("compte1:" + compte1.getNumCompte());
+		// Instancier client attache a conseiller et l'enregistrer en base		
+		client = new ClientProxi(null, "TEST", "TEST", "TEST", "TEST");
+		client.setConseiller(conseiller);
+		clientService.creerClient(client);
 		
-		// Instancier compte 2
-		compte2 =new Compte(null, "C2TEST", "Courant", 0.0, 0.0);
-		//compte2.getClient().setIdClient(1);
-		System.out.println("compte2:" + compte2.getNumCompte());
+		montant = 1000.0;
+		
+		// Instancier compte beneficiaire
+		soldeInitialBeneficiaire = 10000.0;
+		soldeFinalBeneficiaire = 11000.0;
+		compteBeneficiaire = new Compte(null, "CB_TEST", "Courant", soldeInitialBeneficiaire, -1000.0);
+		compteBeneficiaire.setClient(client);
+		System.out.println("compteBeneficiaire:" + compteBeneficiaire.getNumCompte());
+		
+		// Instancier compte emetteur
+		soldeInitialEmetteur = 0.0;
+		soldeFinalEmetteur = -1000.0;
+		compteEmetteur = new Compte(null, "CE_TEST", "Courant", 0.0, -1000.0);
+		compteEmetteur.setClient(client);
+		System.out.println("compteEmetteur:" + compteEmetteur.getNumCompte());
 		
 		// Enregistrer en base associes au client: 2
-		Boolean cree1= compteService.creerCompte(compte1, 2);
-		compteService.creerCompte(compte2, 2);		
-		
-		System.out.println("compte1 cree:" + cree1);
+		compteService.creerCompte(compteBeneficiaire);
+		compteService.creerCompte(compteEmetteur);	
+
+
+		// Instancier transaction
+		transaction = new Transaction();
+		transaction.setIdCompteBeneficiaire(compteBeneficiaire.getIdCompte());
+		transaction.setIdCompteEmmetteur(compteEmetteur.getIdCompte());
+		transaction.setMontant(montant);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		System.out.println("--after");
+		
+		compteService.supprimerCompte(compteBeneficiaire.getIdCompte());
+		compteService.supprimerCompte(compteEmetteur.getIdCompte());
+		clientService.supprimerClient(client.getIdClient());
+		conseillerService.supprimerConseiller(conseiller.getIdConseiller());
 	}
 
 	@Test
 	public void testCrediter() {
 		System.out.println("-testCrediter");
-		fail("Not yet implemented");
+		compteService.crediter(compteBeneficiaire, montant);
+		assertThat(compteService.obtenirCompte(compteBeneficiaire.getIdCompte()).getSoldeCompte(), IsEqual.equalTo(soldeFinalBeneficiaire));
 	}
 
 	@Test
 	public void testDebiter() {
-		fail("Not yet implemented");
+		System.out.println("-testDebiter");
+		compteService.debiter(compteEmetteur, montant);
+		assertThat(compteService.obtenirCompte(compteEmetteur.getIdCompte()).getSoldeCompte(), IsEqual.equalTo(soldeFinalEmetteur));
 	}
 
 	@Test
 	public void testVirement() {
-		fail("Not yet implemented");
+		System.out.println("-testVirement");
+		compteService.virement(transaction);
+		assertThat(compteService.obtenirCompte(compteBeneficiaire.getIdCompte()).getSoldeCompte(), IsEqual.equalTo(soldeFinalBeneficiaire));
+		assertThat(compteService.obtenirCompte(compteEmetteur.getIdCompte()).getSoldeCompte(), IsEqual.equalTo(soldeFinalEmetteur));
 	}
 
 }
