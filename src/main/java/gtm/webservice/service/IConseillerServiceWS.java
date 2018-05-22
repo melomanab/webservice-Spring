@@ -28,6 +28,6 @@ public interface IConseillerServiceWS {
 	 * @return Conseiller Objet de type Conseiller avec un idConseiller null si l'authentification echoue, ou
 	 * un idConseiller different de null et egal a l'idConseiller du conseiller en base
 	 */
-//	public Conseiller authentification(Conseiller conseillerFromUser);
+	public Conseiller authentification(Conseiller conseillerFromUser);
 
 }

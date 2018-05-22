@@ -60,29 +60,29 @@ public class ConseillerServiceWS implements IConseillerServiceWS{
 		return listeClientsConseiller;
 	}
 	
-//	@Override
-//	@PostMapping("/authentification")
-//	public Conseiller authentification(@RequestBody Conseiller conseillerFromUser) {
-//		
-//		Conseiller conseillerSession = new Conseiller();
-//		
-//		// Recuperer login et pwd introduits
-//		String login = conseillerFromUser.getLogin();
-//		String pwd = conseillerFromUser.getPassword();
-//	
-//		ArrayList<Conseiller> listeConseillers = (ArrayList<Conseiller>) this.conseillerRepo.findAll();
-//		
-//		for (Conseiller c: listeConseillers) {
-//			if(c.getLogin().equals(login)) {
-//				if(c.getPassword().equals(pwd)) {
-//					
-//					conseillerSession = c;
-//					
-//				}
-//			}
-//		}
-//		return conseillerSession;
-//	}
+	@Override
+	@PostMapping("/authentification")
+	public Conseiller authentification(@RequestBody Conseiller conseillerFromUser) {
+		
+		Conseiller conseillerSession = new Conseiller();
+		
+		// Recuperer login et pwd introduits
+		String login = conseillerFromUser.getLogin();
+		String pwd = conseillerFromUser.getPassword();
+	
+		ArrayList<Conseiller> listeConseillers = (ArrayList<Conseiller>) this.conseillerRepo.findAll();
+		
+		for (Conseiller c: listeConseillers) {
+			if(c.getLogin().equals(login)) {
+				if(c.getPassword().equals(pwd)) {
+					
+					conseillerSession = c;
+					
+				}
+			}
+		}
+		return conseillerSession;
+	}
 	
 	
 	
