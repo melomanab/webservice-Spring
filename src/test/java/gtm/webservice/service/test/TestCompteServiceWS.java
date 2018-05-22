@@ -7,22 +7,28 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import gtm.webservice.dao.CompteRepository;
 import gtm.webservice.domaine.Compte;
 import gtm.webservice.domaine.Transaction;
 import gtm.webservice.service.CompteServiceWS;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="test-context.xml")
 public class TestCompteServiceWS {
+
+	@Autowired
+	private CompteServiceWS compteService;
 	
-	private static CompteServiceWS compteService;
-	private static Compte compte1;
-	private static Compte compte2;
+	private Compte compte1;
+	private Compte compte2;
 	
-	private static Transaction transaction;
-	
-	
-	
+	private Transaction transaction;
 
 
 	@BeforeClass
@@ -30,8 +36,8 @@ public class TestCompteServiceWS {
 		
 		System.out.println("beforeClass");
 		
-		compteService = new CompteServiceWS ();
-		
+		//compteService = new CompteServiceWS();
+		//System.out.println(compteService.obtenirComptesBanque());
 	
 	}
 
@@ -42,6 +48,7 @@ public class TestCompteServiceWS {
 
 	@Before
 	public void setUp() throws Exception {
+		System.out.println(compteService.obtenirComptesBanque());
 		
 		System.out.println("before");
 		
@@ -51,15 +58,14 @@ public class TestCompteServiceWS {
 		
 		System.out.println("compte1:" + compte1.getNumCompte());
 		
-		
 		// Instancier compte 2
 		compte2 =new Compte(null, "C2TEST", "Courant", 0.0, 0.0);
 		//compte2.getClient().setIdClient(1);
 		System.out.println("compte2:" + compte2.getNumCompte());
 		
 		// Enregistrer en base
-		Boolean cree = compteService.creerCompte(compte1, 1);
-		compteService.creerCompte(compte2, 1);		
+		Boolean cree = compteService.creerCompte(compte1, 2);
+		compteService.creerCompte(compte2, 2);		
 		
 		System.out.println("compte1 cree:" + cree);
 	}
