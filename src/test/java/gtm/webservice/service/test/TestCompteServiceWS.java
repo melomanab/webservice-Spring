@@ -24,6 +24,7 @@ import gtm.webservice.service.CompteServiceWS;
 import gtm.webservice.service.ConseillerServiceWS;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(Parameterized.class)
 @ContextConfiguration(locations="test-context.xml")
 public class TestCompteServiceWS {
 	
