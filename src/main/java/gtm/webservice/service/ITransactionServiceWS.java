@@ -1,5 +1,6 @@
 package gtm.webservice.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public interface ITransactionServiceWS {
 	List<Transaction> obtenirTransactions();
 	
 	//+ decompterTransactions() : Map <String,Integer>
-	Map <Integer,Integer> decompterTransactions();
+	Map <Date,Integer> decompterTransactions();
 
 
 

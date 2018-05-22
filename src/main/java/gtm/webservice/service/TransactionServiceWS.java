@@ -1,7 +1,10 @@
 package gtm.webservice.service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,14 +31,31 @@ public class TransactionServiceWS implements ITransactionServiceWS {
 	}
 
 	@Override
-	public Map<Integer, Integer> decompterTransactions() {
+	@GetMapping(path="/decompterTransactions")
+	public Map<Date, Integer> decompterTransactions() {
 		// TODO Auto-generated method stub
+
+		Date today = new Date();
 		
-		Map<Integer, Integer> transactionsParMois;
+		// Initialiser map
+		Map<Date,Integer> transactionsParJour = new HashMap<Date,Integer>();
+		for (int day=1; day<32; day++) {
+			Date jourDate = new Date(today.getYear(),today.getMonth(),day);
+			transactionsParJour.put(jourDate,0);
+		}
 		
+		List<Transaction> transactionsBanque = this.obtenirTransactions();
 		
+		//Rajouter 1 pour le jour de la transaction
+		for (Transaction transaction : transactionsBanque) {
+			Date transactionDate = transaction.getDate();
+			if ((transactionDate.getYear()==today.getYear())&&(transactionDate.getMonth()==today.getMonth())) {
+				Date jourDate = new Date(today.getYear(),today.getMonth(),transactionDate.getDate()+1);
+				transactionsParJour.put(jourDate,transactionsParJour.get(jourDate)+1);
+			}
+		}
 		
-		return null;
+		return transactionsParJour;
 	}
 
 }
