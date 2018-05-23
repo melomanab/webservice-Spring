@@ -16,21 +16,31 @@
 		</layout>
 	</appender>
 
-	<!-- Appender sortie fichier: blog.log -->
-	<appender name="APPLOG" class="ch.qos.logback.core.FileAppender">
-<!-- 		<file>C:\formationJava\workspaceW10Spring\formation-blog-spring\blog.log -->
-<!-- 		</file> -->
-		
-		<file>\\Nas\salles\Salle 503\USERS\BeatrizMoreno\WS.log</file>
+	<!-- Appender sortie fichier: proxibanque-logs.log -->
+	<appender name="APPLOG" class="ch.qos.logback.core.FileAppender">		
+		<file>C:\Proxibanque\proxibanque-logs.log</file>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>${myPattern}</Pattern>
+		</layout>
+	</appender>
+	
+	<!-- Appender sortie fichier: proxibanque-transactions-logs.log -->
+	<appender name="TRANSLOG" class="ch.qos.logback.core.FileAppender">		
+		<file>C:\Proxibanque\proxibanque-transactions-logs.log</file>
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>${myPattern}</Pattern>
 		</layout>
 	</appender>
 
 	<!-- ==== Loggers === -->
-	<logger name="fr.formation.blog" level="info" additivity="false">
+	<logger name="gtm.webservice" level="info" additivity="false">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="APPLOG" />
+	</logger>
+	
+	<logger name="gtm.webservice.service" level="info" additivity="false">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="TRANSLOG" />
 	</logger>
 
 	<logger name="org.springframework" level="info" additivity="false">
@@ -44,6 +54,7 @@
 	<root level="info">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="APPLOG" />
+		<appender-ref ref="TRANSLOG" />
 	</root>
 
 
