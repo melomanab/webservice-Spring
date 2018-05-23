@@ -18,6 +18,9 @@
         
 	<!-- Activation du scan du package controller pour analyse des classes annotées -->
 	<context:component-scan
+		base-package="gtm.webservice.presentation" />
+	
+	<context:component-scan
 		base-package="gtm.webservice.service" />
 	<!-- Cette configuration permet de mettre en place automatiquement plusieurs bean
 	 Spring importants (plus d'infos : https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc-config-enable) -->
