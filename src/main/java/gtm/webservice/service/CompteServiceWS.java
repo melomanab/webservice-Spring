@@ -23,6 +23,12 @@ import gtm.webservice.domaine.Compte;
 import gtm.webservice.domaine.Conseiller;
 import gtm.webservice.domaine.Transaction;
 
+/**
+ * Classe qui implemente les services definis dans l'interface ICompteServiceWS et les expose comme webservices
+ * @see gtm.webservice.service.ICompteServiceWS
+ * @author Stagiaire
+ *
+ */
 @RestController
 @RequestMapping("api/compteWS")
 public class CompteServiceWS implements ICompteServiceWS {

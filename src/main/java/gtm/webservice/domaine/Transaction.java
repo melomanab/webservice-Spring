@@ -10,6 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Classe representant une transaction de la banque ProxiBanque
+ * Elle est declaree comme entite JPA et se corresponde avec la table "transaction" dans la base de donnees
+ * @author Stagiaire
+ *
+ */
+
 @Entity
 @Table(name="transaction")
 public class Transaction {

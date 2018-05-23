@@ -6,15 +6,24 @@ import java.util.Map;
 
 import gtm.webservice.domaine.Transaction;
 
+/**
+ * Interface permettant de definir les services minimaux associes aux transactions bancaires
+ * @author Stagiaire
+ *
+ */
 public interface ITransactionServiceWS {
 
 	/**
-	 * Permet d'obtenir la liste complete des transactions de la banque
+	 * Methode metier permettant d'obtenir la liste complete des transactions de la banque
 	 * @return
 	 */
 	List<Transaction> obtenirTransactions();
 	
-	//+ decompterTransactions() : Map <String,Integer>
+
+	/**
+	 * Methode metier permettant de regrouper les transactions par jour du mois courant
+	 * @return
+	 */
 	Map <Date,Integer> decompterTransactions();
 
 

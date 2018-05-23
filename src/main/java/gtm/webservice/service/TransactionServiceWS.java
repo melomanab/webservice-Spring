@@ -1,10 +1,11 @@
 package gtm.webservice.service;
 
 import java.util.Date;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import gtm.webservice.dao.TransactionRepository;
 import gtm.webservice.domaine.Transaction;
 
+/**
+ * Classe qui implemente les services definis dans l'interface ITransactionServiceWS et les expose comme webservices
+ * @see gtm.webservice.service.ITransactionServiceWS
+ * @author Stagiaire
+ *
+ */
 @RestController
 @RequestMapping("/api/transactionWS")
 public class TransactionServiceWS implements ITransactionServiceWS {

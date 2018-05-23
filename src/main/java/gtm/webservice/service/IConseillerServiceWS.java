@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.RestController;
 import gtm.webservice.domaine.ClientProxi;
 import gtm.webservice.domaine.Conseiller;
 
+/**
+ * Interface permettant de definir les services minimaux associes a un conseiller bancaire
+ * @author Stagiaire
+ *
+ */
 public interface IConseillerServiceWS {
 	
 
 	/**
 	 * Methode permettant de recuperer la liste de clients associe au conseiller specifie
-	 * @param conseillerId
-	 * @return
+	 * @param conseillerId contenant l'id du conseiller en base
+	 * @return la liste d'objets de type ClientProxi associee au conseiller 
 	 */
 	public List<ClientProxi> obtenirListeClientsConseiller(Integer conseillerId);
 	

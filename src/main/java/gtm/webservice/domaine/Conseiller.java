@@ -17,6 +17,12 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Classe representant un conseiller de la banque ProxiBanque
+ * Elle est declaree comme entite JPA et se corresponde avec la table "conseiller" dans la base de donnees
+ * @author Stagiaire
+ *
+ */
 @Entity
 @Table(name="conseiller")
 @JsonIgnoreProperties({"clientsConseiller"})

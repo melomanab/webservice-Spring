@@ -6,46 +6,55 @@ import gtm.webservice.domaine.ClientProxi;
 import gtm.webservice.domaine.Compte;
 import gtm.webservice.domaine.Transaction;
 
+/**
+ * Interface permettant de definir les services minimaux associes a un compte bancaire
+ * @author Stagiaire
+ *
+ */
 public interface ICompteServiceWS {
 
-	// + obtenirComptesClient(ClientProxi) : List<Compte>
 
 	/**
-	 * Methode pour obtenir la liste de comptes du client specifie en parametre
-	 * 
-	 * @param idClient
-	 * @return
+	 * Methode permettant d'obtenir la liste de comptes du client associe a l'id specifie en parametre
+	 * @param idClient identifiant du client
+	 * @return renvoie la liste de comptes associes au client 
 	 */
 	public List<Compte> obtenirComptesClient(Integer idClient);
 
-	// + obtenirComptesBanque() : List<Compte>
 
 	/**
-	 * Methode pour obtenir la liste de comptes en banque
-	 * 
-	 * @return
+	 * Methode permettant d'obtenir la liste complete de comptes en banque
+	 * @return renvoie une liste de comptes
 	 */
 	public List<Compte> obtenirComptesBanque();
 
-	// + virement(Compte,Compte,Double) : Boolean
 
 	/**
 	 * Methode permettant d'effectuer un virement compte a compte
-	 * 
-	 * @param compteEmeteur
-	 * @param compteDebiteur
-	 * @param montant
-	 * @return
+	 * @param transaction
+	 * @return renvoie true si le virement a ete effectue
 	 */
 	public Boolean virement(Transaction transaction);
 
-	// # debiter (Compte, Double): Boolean
+
+	/**
+	 * Methode permettant de debiter un compte
+	 * @param compte Compte a debiter
+	 * @param montant Montant a prelever du compte
+	 * @return
+	 */
 	Boolean debiter(Compte compte, Double montant);
 
-	// # crediter (Compte, Double): Boolean
+	
+	/**
+	 * Methode permettant de crediter un compte
+	 * @param compte Compte a crediter
+	 * @param montant Montant a crediter dans le compte
+	 * @return
+	 */
 	Boolean crediter(Compte compte, Double montant);
 
-	// + obtenirComptesDecouvert(): List<Compte>
+
 	/**
 	 * Methode permettant d'obtenir la liste de comptes a decouvert
 	 * @return

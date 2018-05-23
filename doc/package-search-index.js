@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"gtm.webservice.dao"},{"l":"gtm.webservice.domaine"},{"l":"gtm.webservice.service.test"}]
+packageSearchIndex = [{"l":"gtm.webservice.dao"},{"l":"gtm.webservice.domaine"},{"l":"gtm.webservice.presentation"},{"l":"gtm.webservice.service.test"}]

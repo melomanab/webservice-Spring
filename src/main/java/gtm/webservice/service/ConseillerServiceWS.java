@@ -21,6 +21,12 @@ import gtm.webservice.domaine.ClientProxi;
 import gtm.webservice.domaine.Compte;
 import gtm.webservice.domaine.Conseiller;
 
+/**
+ * Classe qui implemente les services definis dans l'interface IConseillerServiceWS et les expose comme webservices
+ * @see gtm.webservice.service.IConseillerServiceWS
+ * @author Stagiaire
+ *
+ */
 @RestController
 @RequestMapping("/api/conseillerWS")
 public class ConseillerServiceWS implements IConseillerServiceWS{

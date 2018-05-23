@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import gtm.webservice.dao.ClientProxiRepository;
 import gtm.webservice.domaine.ClientProxi;
 
+/**
+ * Classe qui implemente les services definis dans l'interface IClientServiceWS et les expose comme webservices
+ * @see gtm.webservice.service.IClientServiceWS
+ * @author Stagiaire
+ *
+ */
 @RestController
 @RequestMapping("/api/clientWS")
 public class ClientServiceWS implements IClientServiceWS {
@@ -37,8 +43,7 @@ public class ClientServiceWS implements IClientServiceWS {
 	private ClientProxiRepository clientProxiRepo;
 
 	/**
-	 * Methode pour creer un client en base associe a un conseiller Fonctionnelles
-	 * (testée avec Postman)
+	 * Methode pour creer un client en base associe a un conseiller. Fonctionnelle (testée avec Postman)
 	 * 
 	 * @param client
 	 * @return
